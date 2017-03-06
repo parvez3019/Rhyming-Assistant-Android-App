@@ -20,7 +20,7 @@
         android:paddingBottom="5dp">
 
         <TextView
-            android:id="@+id/list_item_review_author_textbox"
+            android:id="@+id/list_item_rhyming_word"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Word"
