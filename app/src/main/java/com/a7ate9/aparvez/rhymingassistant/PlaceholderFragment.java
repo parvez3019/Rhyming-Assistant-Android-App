@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -28,6 +29,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import static android.R.layout.simple_list_item_1;
 
 /**
  * Created by aparvez on 3/6/17.
@@ -57,7 +60,9 @@ public class PlaceholderFragment extends Fragment {
             public void onClick(View v) {
                 word = wordTextBox.getText().toString();
                 getRhymingWords(word);
-                Toast.makeText(getActivity(), word, Toast.LENGTH_SHORT).show();
+                if (word.length() == 0) {
+                    Toast.makeText(getActivity(), "Really?", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -149,7 +154,7 @@ public class PlaceholderFragment extends Fragment {
             JSONArray jsonWordsArray = new JSONArray(rhymingWordsJsonString);
 
             for (int i = 0; i < jsonWordsArray.length(); i++) {
-                JSONObject currentJSONObject = jsonWordsArray.getJSONObject(1);
+                JSONObject currentJSONObject = jsonWordsArray.getJSONObject(i);
                 String rhymedWord = currentJSONObject.get(WORD).toString();
                 rhymingWords.add(rhymedWord);
             }
@@ -160,10 +165,16 @@ public class PlaceholderFragment extends Fragment {
         protected void onPostExecute(List<String> rhymingWords) {
             super.onPostExecute(rhymingWords);
             if (rhymingWords != null) {
-//                final RhymingWordAdapter rhymingWordAdapter = new RhymingWordAdapter (getActivity(),rhymingWords);
-//                rhymeWordsList.setAdapter(rhymingWordAdapter);
+                populateListViewWithWords(rhymingWords);
             }
         }
 
+        private void populateListViewWithWords(List<String> rhymingWords) {
+            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
+                    getActivity(),
+                    simple_list_item_1,
+                    rhymingWords);
+            rhymeWordsList.setAdapter(arrayAdapter);
+        }
     }
 }
