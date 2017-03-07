@@ -37,7 +37,7 @@ import static android.R.layout.simple_list_item_1;
  */
 public class PlaceholderFragment extends Fragment {
 
-    public static final String NO_RHYMING_WORDS_FOUND_MESSAGE = "Dammit! This rhymes only with Rajnikanth";
+    public static final String NO_RHYMING_WORDS_FOUND_MESSAGE = "Rajnikanth";
     private EditText wordTextBox;
     private Button rhymeButton;
     private ListView rhymeWordsList;
@@ -59,11 +59,11 @@ public class PlaceholderFragment extends Fragment {
         rhymeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                word = wordTextBox.getText().toString();
-                getRhymingWords(word);
+                word = wordTextBox.getText().toString().replace(" ", "");
                 if (word.length() == 0) {
                     Toast.makeText(getActivity(), "Really?", Toast.LENGTH_SHORT).show();
                 }
+                getRhymingWords(word);
             }
         });
     }
@@ -164,10 +164,10 @@ public class PlaceholderFragment extends Fragment {
         @Override
         protected void onPostExecute(List<String> rhymingWords) {
             super.onPostExecute(rhymingWords);
-            if(rhymingWords.isEmpty()){
+            if (rhymingWords.isEmpty()) {
+                rhymingWords.add(NO_RHYMING_WORDS_FOUND_MESSAGE);
                 Toast.makeText(getActivity(), "I can't climb & this doesn't rhyme.", Toast.LENGTH_SHORT).show();
             }
-            rhymingWords.add(NO_RHYMING_WORDS_FOUND_MESSAGE);
             populateListViewWithWords(rhymingWords);
         }
 
