@@ -37,6 +37,7 @@ import static android.R.layout.simple_list_item_1;
  */
 public class PlaceholderFragment extends Fragment {
 
+    public static final String NO_RHYMING_WORDS_FOUND_MESSAGE = "Dammit! This rhymes only with Rajnikanth";
     private EditText wordTextBox;
     private Button rhymeButton;
     private ListView rhymeWordsList;
@@ -152,7 +153,6 @@ public class PlaceholderFragment extends Fragment {
             final String WORD = "word";
             rhymingWords = new ArrayList<>();
             JSONArray jsonWordsArray = new JSONArray(rhymingWordsJsonString);
-
             for (int i = 0; i < jsonWordsArray.length(); i++) {
                 JSONObject currentJSONObject = jsonWordsArray.getJSONObject(i);
                 String rhymedWord = currentJSONObject.get(WORD).toString();
@@ -164,9 +164,11 @@ public class PlaceholderFragment extends Fragment {
         @Override
         protected void onPostExecute(List<String> rhymingWords) {
             super.onPostExecute(rhymingWords);
-            if (rhymingWords != null) {
-                populateListViewWithWords(rhymingWords);
+            if(rhymingWords.isEmpty()){
+                Toast.makeText(getActivity(), "I can't climb & this doesn't rhyme.", Toast.LENGTH_SHORT).show();
             }
+            rhymingWords.add(NO_RHYMING_WORDS_FOUND_MESSAGE);
+            populateListViewWithWords(rhymingWords);
         }
 
         private void populateListViewWithWords(List<String> rhymingWords) {
