@@ -1,6 +1,6 @@
 # Rhyming-Assistant-Android-App
 
-<a https://play.google.com/store/apps/details?id=com.a7ate9.aparvez.rhymingassistant&hl=en />
+[Rhyming Assistant on Google Play](https://play.google.com/store/apps/details?id=com.a7ate9.aparvez.rhymingassistant&hl=en)
 
 
 <img width="333" alt="screenshot 2017-03-07 11 03 54" src="https://cloud.githubusercontent.com/assets/10362597/23643152/e18e4a2a-0325-11e7-9e36-6990b0ca0736.png">
